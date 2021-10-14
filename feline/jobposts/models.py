@@ -32,8 +32,12 @@ class Category(TimeStampedModel, models.Model):
     description = models.TextField('descripción', blank=True, null=True)
     slug = AutoSlugField('slug', populate_from='name')
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "categories"
+
 
 class Company(TimeStampedModel, models.Model):
     logo = models.ImageField(blank=True, null=True)
@@ -51,7 +55,9 @@ class Company(TimeStampedModel, models.Model):
     def __str__(self):
         return self.name
 
-# 
+    class Meta:
+        verbose_name_plural = "companies"
+
 
 class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
     company = ForeignKey(Company, on_delete=models.CASCADE)
