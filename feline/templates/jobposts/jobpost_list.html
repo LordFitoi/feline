@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block content %}
+
+{% for jobpost in object_list %}
+    <li>Hello world</li>
+
+{% empty %}
+    <p>They are no jobs available</p>
+{% endfor %}
+
+{% endblock content %}

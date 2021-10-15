@@ -8,25 +8,6 @@ from django_extensions.db.models import TitleSlugDescriptionModel, TimeStampedMo
 from taggit.managers import TaggableManager
 
 
-class JobTypeChoice(Enum):
-    PART_TIME = "Part Time"
-    FULL_TIME = "Full Time"
-    CONTRACT = "Contract"
-    INTERNSHIP = "Internship"
-
-
-class StatusChoice(Enum):
-    NEW = "new"
-    APPROVED = "approved"
-    DELETED = "deleted"
-    EXPIRED = "expired"
-
-class CurrencyChoice(Enum):
-    PESOS = "DOP"
-    DOLLARS = "USD"
-    EUROS = "EUR"
-
-
 class Category(TimeStampedModel, models.Model):
     name = models.CharField('nombre', max_length=255)
     description = models.TextField('descripción', blank=True, null=True)
@@ -37,6 +18,7 @@ class Category(TimeStampedModel, models.Model):
 
     class Meta:
         verbose_name_plural = "categories"
+        ordering = ['name']
 
 
 class Company(TimeStampedModel, models.Model):
@@ -60,6 +42,25 @@ class Company(TimeStampedModel, models.Model):
 
 
 class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
+    class JobType(models.TextChoices):
+        PART_TIME = "Part Time"
+        FULL_TIME = "Full Time"
+        CONTRACT = "Contract"
+        INTERNSHIP = "Internship"
+
+
+    class Status(models.TextChoices):
+        NEW = "new"
+        APPROVED = "approved"
+        DELETED = "deleted"
+        EXPIRED = "expired"
+
+
+    class Currency(models.TextChoices):
+        PESOS = "DOP"
+        DOLLARS = "USD"
+        EUROS = "EUR"
+
     company = ForeignKey(Company, on_delete=models.CASCADE)
     # TODO:    Location => Countries + ‘Remote’ (primera option) + Estados Unidos 
     #          + Republica Dominicana
@@ -72,19 +73,19 @@ class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
 
     status = models.CharField(
       max_length=20,
-      choices=[(tag, tag.value) for tag in StatusChoice],
-      default=StatusChoice.NEW  
+      choices=Status.choices,
+      default=Status.NEW  
     )
     job_type = models.CharField(
       max_length=20,
-      choices=[(tag, tag.value) for tag in JobTypeChoice]  
+      choices=JobType.choices
     )
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = TaggableManager()
 
     currency =  models.CharField(
       max_length=20,
-      choices=[(tag, tag.value) for tag in CurrencyChoice]  
+      choices=Currency.choices
     )
 
     salary_range_start_at =  models.IntegerField(blank=True, null=True)
@@ -94,5 +95,3 @@ class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
 
     def __str__(self) -> str:
         return self.title
-
-
