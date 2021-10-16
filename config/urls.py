@@ -5,10 +5,11 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
-from jobposts.views import jobpost_list_view 
+from jobposts.views import jobpost_create_view, jobpost_list_view 
 
 urlpatterns = [
     path("", jobpost_list_view, name="home"),
+    path("new/", jobpost_create_view, name="create"),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
