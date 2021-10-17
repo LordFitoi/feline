@@ -1,6 +1,8 @@
-
-
-
+body {
+  font-family: soleil, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
 // project specific CSS goes here
 
@@ -16,6 +18,8 @@ $black: #000;
 $pink: #f2dede;
 $dark-pink: #eed3d7;
 $red: #b94a48;
+
+$main-color: #1D4ED8;
 
 ////////////////////////////////
 		//Alerts//
@@ -34,4 +38,53 @@ $red: #b94a48;
   background-color: $pink;
   border-color: $dark-pink;
   color: $red;
+}
+
+
+form {
+
+  select {
+    border: rgb(209, 213, 219) 1px solid;
+    border-radius: 6px;
+    padding: 8px 48px 8px 24px;
+    line-height: 20px;
+    font-size: 14px;
+    width: 320px;
+  }
+
+  input {
+    border: rgb(209, 213, 219) 1px solid;
+    border-radius: 6px;
+    padding: 8px 48px 8px 24px;
+    line-height: 20px;
+    font-size: 14px;
+    width: 320px;
+  }
+
+  textarea {
+    border: rgb(209, 213, 219) 1px solid;
+    border-radius: 6px;
+    padding: 8px 48px 8px 24px;
+    line-height: 20px;
+    font-size: 14px;
+    width: 320px;
+  }
+
+  [type=submit] {
+    font-weight: 700;
+    background-color: $main-color;
+    color: $white;
+    padding: 8px 24px 8px 24px;
+    margin: auto;
+  }
+
+  [type=checkbox] {
+    width: inherit;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
 }

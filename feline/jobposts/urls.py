@@ -9,7 +9,7 @@ from .views import (
 app_name = "jobpost"
 urlpatterns = [
     path("", view=jobpost_list_view, name="home"),
-    path("<str:slug>/", view=jobpost_detail_view, name="detail"),
+    path("<str:slug>/", view=jobpost_detail_view, name="jobpost-detail"),
     path("new", view=jobpost_create_view, name="create"),
 
 ]

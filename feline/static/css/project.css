@@ -1,3 +1,8 @@
+body {
+  font-family: soleil, sans-serif;
+  font-weight: 400;
+  font-style: normal; }
+
 .alert-debug {
   background-color: #fff;
   border-color: #d6e9c6;
@@ -7,3 +12,44 @@
   background-color: #f2dede;
   border-color: #eed3d7;
   color: #b94a48; }
+
+form select {
+  border: #d1d5db 1px solid;
+  border-radius: 6px;
+  padding: 8px 48px 8px 24px;
+  line-height: 20px;
+  font-size: 14px;
+  width: 320px; }
+
+form input {
+  border: #d1d5db 1px solid;
+  border-radius: 6px;
+  padding: 8px 48px 8px 24px;
+  line-height: 20px;
+  font-size: 14px;
+  width: 320px; }
+
+form textarea {
+  border: #d1d5db 1px solid;
+  border-radius: 6px;
+  padding: 8px 48px 8px 24px;
+  line-height: 20px;
+  font-size: 14px;
+  width: 320px; }
+
+form [type=submit] {
+  font-weight: 700;
+  background-color: #1D4ED8;
+  color: #fff;
+  padding: 8px 24px 8px 24px;
+  margin: auto; }
+
+form [type=checkbox] {
+  width: inherit; }
+
+form label {
+  display: block;
+  margin-bottom: 16px;
+  margin-bottom: 1rem;
+  margin-top: 16px;
+  margin-top: 1rem; }

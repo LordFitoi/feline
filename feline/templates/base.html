@@ -9,10 +9,8 @@
     <meta name="author" content="Leonardo Jimenez">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <![endif]-->
 
+    <link rel="stylesheet" href="https://use.typekit.net/yvc2vrt.css">
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
 
     {% block css %}
@@ -39,36 +37,33 @@
 
   <body>
 
-    <div class="mb-1">
-      <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="{% url 'home' %}">feline</a>
+    <div class="" style="background-color: #1D4ED8; color: white;">
+      <nav class="invisible sm:visible flex justify-between py-8 mb-12 container mx-auto">
+        <a class="" href="{% url 'home' %}">feline</a>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+        <div class="" id="navbarSupportedContent">
+          <ul class="flex">
+            <li class="active">
               <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li class="ml-12">
               <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
             {% if request.user.is_authenticated %}
-              <li class="nav-item">
+              <li class="ml-12">
                 {# URL provided by django-allauth/account/urls.py #}
                 <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% translate "My Profile" %}</a>
               </li>
-              <li class="nav-item">
+              <li class="ml-12">
                 {# URL provided by django-allauth/account/urls.py #}
                 <a class="nav-link" href="{% url 'account_logout' %}">{% translate "Sign Out" %}</a>
               </li>
             {% else %}
-              <li class="nav-item">
+              <li class="ml-12">
                 {# URL provided by django-allauth/account/urls.py #}
                 <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% translate "Sign Up" %}</a>
               </li>
-              <li class="nav-item">
+              <li class="ml-12">
                 {# URL provided by django-allauth/account/urls.py #}
                 <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% translate "Sign In" %}</a>
               </li>
@@ -79,7 +74,7 @@
 
     </div>
 
-    <div class="container">
+    <div class="container mx-auto">
 
       {% if messages %}
           {% for message in messages %}

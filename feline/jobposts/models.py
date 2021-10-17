@@ -5,6 +5,9 @@ from django_countries.fields import CountryField
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 from django_extensions.db.models import TitleSlugDescriptionModel, TimeStampedModel
+from django.urls import reverse
+
+from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
 
 
@@ -61,11 +64,12 @@ class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
         DOLLARS = "USD"
         EUROS = "EUR"
 
+    description = RichTextField()
     company = ForeignKey(Company, on_delete=models.CASCADE)
     # TODO:    Location => Countries + ‘Remote’ (primera option) + Estados Unidos 
     #          + Republica Dominicana
     location = CountryField()
-    how_to_apply = models.TextField()
+    how_to_apply = RichTextField()
 
     # TODO: Validation either the application_url or the application_email is fill out
     application_url = models.URLField(blank=True, null=True)
@@ -95,3 +99,6 @@ class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+    def get_absolute_url(self) -> str:
+        return reverse('jobpost-detail', args=[str(self.slug)])

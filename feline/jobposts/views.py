@@ -2,6 +2,10 @@ from __future__ import annotations
 from django.shortcuts import render
 
 from django.views.generic import DetailView, ListView, CreateView
+
+from feline.jobposts.forms import JobPostForm
+
+from .forms import JobPostForm
 from .models import Company, JobPost 
 
 
@@ -25,7 +29,8 @@ jobpost_detail_view = JobPostDetailView.as_view()
 class JobPostCreateView(CreateView):
     model = JobPost
     success_url = "/"
-    fields = ['company', 'location', 'how_to_apply', 'application_url', 'application_email', 'job_type', 'category', 'tags', 'currency','salary_range_start_at', 'salary_range_end_at', 'sponsor_relocation']
+    form = JobPostForm
+    fields = ['company','title', 'description', 'location', 'how_to_apply', 'application_url', 'application_email', 'job_type', 'category', 'tags', 'currency','salary_range_start_at', 'salary_range_end_at', 'sponsor_relocation']
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
