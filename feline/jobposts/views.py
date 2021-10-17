@@ -51,3 +51,10 @@ class CompanyCreateView(CreateView):
 
 
 company_create_view = CompanyCreateView.as_view()
+
+
+class CompanyDetailView(DetailView):
+    model = Company
+
+
+company_detail_view = CompanyDetailView.as_view()

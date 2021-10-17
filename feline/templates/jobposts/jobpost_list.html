@@ -13,6 +13,28 @@
 
     </div>
 
+    {% if page_obj.has_other_pages %}
+    <div class="mt-12">
+        <span class="current mr-12">
+            Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }} [ {{ page_obj.paginator.count }} trabajos]
+        </span>
+
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a class="mx4 rounded-lg border py-1 px-3" href="?page=1">&laquo; Primer</a>
+                <a class="mx4 rounded-lg border py-1 px-3" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+    
+          
+    
+            {% if page_obj.has_next %}
+                <a class="mx4 rounded-lg border py-1 px-3" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                <a class="mx4 rounded-lg border py-1 px-3" href="?page={{ page_obj.paginator.num_pages }}">Ultima Pagina &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
+
 {% empty %}
     <p>They are no jobs available</p>
 {% endfor %}

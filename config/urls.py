@@ -5,12 +5,13 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
-from feline.jobposts.views import company_create_view, jobpost_create_view, jobpost_detail_view, jobpost_list_view
+from feline.jobposts.views import company_create_view, jobpost_create_view, jobpost_detail_view, jobpost_list_view, company_detail_view
 
 urlpatterns = [
     path("", jobpost_list_view, name="home"),
     path("new/", jobpost_create_view, name="create"),
     path("jobpost/<str:slug>/", jobpost_detail_view, name="jobpost-detail"),
+    path("company/<str:slug>/", company_detail_view, name="company-detail"),
     path("company/new/", company_create_view, name="company-create"),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"

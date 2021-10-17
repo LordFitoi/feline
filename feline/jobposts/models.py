@@ -41,6 +41,9 @@ class Company(TimeStampedModel, models.Model):
     class Meta:
         verbose_name_plural = "companies"
 
+    def get_absolute_url(self) -> str:
+        return reverse('company-detail', args=[str(self.slug)])
+
 
 class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
     class JobType(models.TextChoices):
