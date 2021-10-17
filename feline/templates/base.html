@@ -44,7 +44,7 @@
         <div class="" id="navbarSupportedContent">
           <ul class="flex">
             <li class="active">
-              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'home' %}">Empleos <span class="sr-only">(current)</span></a>
             </li>
             <li class="ml-12">
               <a class="nav-link" href="{% url 'about' %}">About</a>
@@ -52,20 +52,20 @@
             {% if request.user.is_authenticated %}
               <li class="ml-12">
                 {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% translate "My Profile" %}</a>
+                <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">Perfil</a>
               </li>
               <li class="ml-12">
                 {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'account_logout' %}">{% translate "Sign Out" %}</a>
+                <a class="nav-link" href="{% url 'account_logout' %}">Salir</a>
               </li>
             {% else %}
               <li class="ml-12">
                 {# URL provided by django-allauth/account/urls.py #}
-                <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% translate "Sign Up" %}</a>
+                <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">Registrate</a>
               </li>
               <li class="ml-12">
                 {# URL provided by django-allauth/account/urls.py #}
-                <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% translate "Sign In" %}</a>
+                <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">Iniciar Sesión</a>
               </li>
             {% endif %}
           </ul>

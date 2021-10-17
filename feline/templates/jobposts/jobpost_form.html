@@ -11,7 +11,7 @@
     <div class="fieldWrapper">
         {{ form.company.errors }}
         <label for="{{ form.company.id_for_label }}">Compañia</label>
-        {{ form.company }}
+        {{ form.company }} o  <a href="{% url 'company-create' %}">crea una nueva compañía</a>
     </div>
     <div class="fieldWrapper">
         {{ form.title.errors }}

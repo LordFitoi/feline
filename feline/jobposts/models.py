@@ -1,8 +1,8 @@
 from enum import Enum
 from feline.users.models import User
-from django.db.models.fields.related import ForeignKey
 from django_countries.fields import CountryField
 from django.db import models
+from django.db.models.fields.related import ForeignKey
 from django_extensions.db.fields import AutoSlugField
 from django_extensions.db.models import TitleSlugDescriptionModel, TimeStampedModel
 from django.urls import reverse
@@ -25,16 +25,14 @@ class Category(TimeStampedModel, models.Model):
 
 
 class Company(TimeStampedModel, models.Model):
-    logo = models.ImageField(blank=True, null=True)
-    name = models.CharField('nombre', max_length=255)
-    description = models.TextField('descripción', blank=True, null=True)
+    description = RichTextField('descripción')
+    logo = models.ImageField("Logo de la Compañía", blank=True, null=True)
+    name = models.CharField('Nombre de la Compañía', max_length=255)
     slug = AutoSlugField('slug', populate_from='name')
     email = models.EmailField()
-    verified = models.BooleanField()
-    company_url = models.URLField(blank=True)
-    twitter_url = models.URLField(blank=True)
-    lindkedin_url = models.URLField(blank=True)
-    country = CountryField()
+    verified = models.BooleanField(blank=True, null=True)
+    company_url = models.URLField("Pagina de la Compañía", blank=True)
+    country = CountryField("País")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
