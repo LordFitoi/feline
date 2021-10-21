@@ -90,16 +90,32 @@ class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
 
     currency =  models.CharField(
       max_length=20,
-      choices=Currency.choices
+      choices=Currency.choices,
+      blank=True,
+      null=True
     )
 
     salary_range_start_at =  models.IntegerField(blank=True, null=True)
     salary_range_end_at = models.IntegerField(blank=True, null=True)
 
     sponsor_relocation = models.BooleanField(default=False)
+    is_remote = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-created']
 
     def __str__(self) -> str:
         return self.title
+
+    def get_salary_range(self) -> str:
+        if self.salary_range_start_at and self.salary_range_end_at and self.currency:
+            return f"{self.salary_range_start_at:>15,.2f}-{self.salary_range_end_at:>15,.2f} {self.currency}"
+        elif self.salary_range_start_at:
+            return f"desde  {self.salary_range_start_at:>15,.2f} {self.currency}"
+        elif self.salary_range_end_at:
+            return f"hasta {self.salary_range_end_at:>15,.2f} {self.currency}"
+
+        return "No disponible"
 
     def get_absolute_url(self) -> str:
         return reverse('jobpost-detail', args=[str(self.slug)])

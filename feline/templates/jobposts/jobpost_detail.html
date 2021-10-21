@@ -1,7 +1,55 @@
 {% extends "base.html" %}
 {% load static i18n l10n %}
 
+
+{% block notification_bar %}
+{% if object.company.user == request.user %}
+<div class="items-center bg-gray-100">
+    <div class="container mx-auto flex justify-end">
+        <div class="ml-6 sm:ml-0">
+            <a class="whitespace-nowrap inline-flex rounded-md py-2 px-3 text-base font-semibold uppercase text-blue-500 hover:bg-opacity-90" href="{% url 'jobpost-edit' object.slug %}">Editar Empleo</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock notification_bar %}
+
+
 {% block content %}
 
+<div class="flex justify-start">
+    <img class="max-w-16" src="{{ object.company.logo.url }}">
+
+    <div class="ml-12">
+        <h1 class="text-3xl">{{ object.title }}</h1>
+        <h2 class="text-base font-light my-2">{{ object.company }}</h2>
+
+        <div class="flex">
+        {% if not object.is_remote %} 
+            <div class="border rounded-md font-light px-2 py-0.5 uppercase text-sm my-2">remoto</div> {% endif %} 
+            <div class="border rounded-md font-light px-2 py-0.5 ml-3 uppercase text-sm my-2">{{ object.job_type }}</div>
+        </div>    
+    </div>
+</div>
+
+<div class="flex mt-8 mb-1">
+    <div class="w-3/5 mr-8">
+        <h3 class="text-lg font-bold">Salario</h3>
+        {{ object.get_salary_range }}
+
+        <h3 class="mt-8 mb-1 text-lg font-bold">Detalles del Trabajo</h3>
+        
+        {{ object.description | safe }}
+        
+        <h3 class="mt-8 mb-1 text-lg font-bold">Como aplicar</h3>
+        
+        {{ object.how_to_apply | safe }}
+        
+    </div>
+    <div class="w-2/5 border rounded-md ">
+
+    </div>
+</div>
 
 {% endblock content %}
