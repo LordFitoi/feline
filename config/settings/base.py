@@ -72,7 +72,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.facebook",
-    "allauth.socialaccount.providers.linkedin",
+    "allauth.socialaccount.providers.linkedin_oauth2",
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
@@ -320,5 +320,21 @@ SOCIALACCOUNT_PROVIDERS = {
         # 'LOCALE_FUNC': 'path.to.callable',
         'VERIFIED_EMAIL': False,
         'VERSION': 'v7.0',
+    },
+    'linkedin': {
+        'SCOPE': [
+            'r_basicprofile',
+            'r_emailaddress'
+        ],
+        'PROFILE_FIELDS': [
+            'id',
+            'first-name',
+            'last-name',
+            'email-address',
+            'picture-url',
+            'public-profile-url',
+        ]
     }
 }
+
+SOCIALACCOUNT_QUERY_EMAIL = True
