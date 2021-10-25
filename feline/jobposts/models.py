@@ -25,14 +25,27 @@ class Category(TimeStampedModel, models.Model):
 
 
 class Company(TimeStampedModel, models.Model):
+    class CompanySize(models.TextChoices):
+        MICRO = "Menos de 10"
+        SMALL = "10-50 Empleados"
+        MEDIUM = "50-500 Empleados"
+        LARGE = "500-2000 Empleados"
+        X_LARGE = "+2000 Empleados"
+
     description = RichTextField('descripción')
     logo = models.ImageField("Logo de la Compañía", blank=True, null=True)
+    tagline = models.CharField("Slogan de la compañía", max_length=350, blank=True, null=True)
     name = models.CharField('Nombre de la Compañía', max_length=255)
     slug = AutoSlugField('slug', populate_from='name')
     email = models.EmailField()
     verified = models.BooleanField(blank=True, null=True)
     company_url = models.URLField("Pagina de la Compañía", blank=True)
     country = CountryField("País")
+    company_size = models.CharField("Tamaño de la compañía",
+      max_length=20,
+      choices=CompanySize.choices,
+      default=CompanySize.MICRO  
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -17,4 +17,4 @@ class CompanyForm(forms.ModelForm):
 
     class Meta:
         model = Company
-        fields = ["logo", "name", "description", "email", "company_url", "country"]
+        fields = ["name", "tagline", "logo", "company_size",  "description", "email", "company_url", "country"]

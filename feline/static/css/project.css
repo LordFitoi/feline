@@ -53,3 +53,7 @@ form label {
   margin-bottom: 1rem;
   margin-top: 16px;
   margin-top: 1rem; }
+
+.login-btn-facebook {
+  background-color: #1A76F2;
+  color: white; }
