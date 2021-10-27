@@ -22,6 +22,11 @@ class JobPostDetailView(DetailView):
     slug_field = "slug"
     slug_url_kwarg = "slug"
 
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['other_jobs'] = JobPost.objects.filter(company=self.object.company).exclude(id=self.object.id)
+        return context
+
 
 jobpost_detail_view = JobPostDetailView.as_view()
 
@@ -78,5 +83,9 @@ company_create_view = CompanyCreateView.as_view()
 class CompanyDetailView(DetailView):
     model = Company
 
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['jobs'] = JobPost.objects.filter(company=self.object)[:10]
+        return context
 
 company_detail_view = CompanyDetailView.as_view()

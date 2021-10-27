@@ -120,6 +120,17 @@ class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
     def __str__(self) -> str:
         return self.title
 
+    def has_application_url(self) -> bool:
+        return any([self.application_email, self.application_url, self.company.company_url])
+
+    def get_application_url(self) -> str:
+        if self.application_url:
+            return self.application_url
+        if self.application_email:
+            return f"mailto:{self.application_email}"
+
+        return  self.company.company_url
+
     def get_salary_range(self) -> str:
         if self.salary_range_start_at and self.salary_range_end_at and self.currency:
             return f"{self.salary_range_start_at:>15,.2f}-{self.salary_range_end_at:>15,.2f} {self.currency}"

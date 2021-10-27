@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>checkmark-icon</title>
+    <g id="Color-Versions" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Company" transform="translate(-666.000000, -369.000000)">
+            <g id="checkmark-icon" transform="translate(666.000000, 369.000000)">
+                <circle id="Oval" fill="#4E91FF" cx="8" cy="8" r="8"></circle>
+                <path d="M9.99085719,4.84474976 C10.4643375,4.27844142 11.3099837,4.2009196 11.8796609,4.67159994 C12.4208543,5.11874626 12.5182936,5.89978607 12.1207343,6.4623108 L12.0538408,6.54923405 L7.59477653,11.8825187 C7.035023,12.5520146 6.00056527,12.5122751 5.48904371,11.8288713 L5.4278993,11.7400981 L3.11513425,8.08436977 C2.72077857,7.46102187 2.9094195,6.63790062 3.53647556,6.245877 C4.13217882,5.87345456 4.90925006,6.0240751 5.32357863,6.57451112 L5.38590512,6.66472667 L6.71367201,8.7636306 L9.99085719,4.84474976 Z" id="Path-2" fill="#FFFFFF" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

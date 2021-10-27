@@ -35,39 +35,39 @@
 
   </head>
 
-  <body style="background-color: #F2F4F7;">
+  <body class="w-full" style="background-color: #F2F4F7;">
     {% block notification_bar %}
     {% endblock notification_bar %}
     <div class="" style="background-color: #fff;">
-      <nav class="invisible sm:visible flex justify-between py-4 mb-12 container mx-auto">
-        <a class="" href="{% url 'home' %}"><img class="h-8" src="{% static 'images/website-logo.svg' %}"></a>
+      {% include "menu/off-canvas.html" %}
+      <div></div>
+      <nav class="hidden invisible sm:visible sm:flex justify-start sm:justify-between h-20 py-4 px-4 mb-12 container mx-auto">
+        <a class="logo" href="{% url 'home' %}"><img class="h-8" src="{% static 'images/website-logo.svg' %}"></a>
 
         <div class="" id="navbarSupportedContent">
           <ul class="flex">
             <li class="active">
               <a class="gray-900 font-bold" href="{% url 'home' %}">Empleos <span class="sr-only">(current)</span></a>
             </li>
-            <li class="ml-12">
-              <a class="gray-900 font-bold" href="{% url 'about' %}">About</a>
-            </li>
+            
             {% if request.user.is_authenticated %}
-              <li class="ml-12">
+              <li class="ml-6">
                 {# URL provided by django-allauth/account/urls.py #}
                 <a class="gray-900 font-bold" href="{% url 'users:detail' request.user.username  %}">Perfil</a>
               </li>
-              <li class="ml-12">
+              <li class="ml-6">
                 {# URL provided by django-allauth/account/urls.py #}
                 <a class="gray-900 font-bold" href="{% url 'account_logout' %}">Salir</a>
               </li>
-              <li class="ml-12">
+              <li class="ml-6">
                 <a class="gray-900 font-bold" href="{% url 'create' %}">Nueva Posición</a>
               </li>
             {% else %}    
-              <li class="ml-12">
+              <li class="ml-6">
                 {# URL provided by django-allauth/account/urls.py #}
-                <a id="log-in-link" style="background-color: #F5CBA5" class="gray-900 py-2 px-4 rounded font-bold" href="{% url 'account_login' %}">Iniciar Sesión</a>
+                <a id="log-in-link" style="border-color: #F78C2C; color: #F78C2C;" class="gray-900 py-1.5 px-3 border-2 rounded font-bold" href="{% url 'account_login' %}">Iniciar Sesión</a>
               </li>
-              <li class="ml-12">
+              <li class="ml-6">
                 {# URL provided by django-allauth/account/urls.py #}
                 <a id="sign-up-link" style="background-color: #F78C2C; color: white;" class="py-2 px-4 rounded" href="{% url 'account_signup' %}">Registrate</a>
               </li>
@@ -91,7 +91,7 @@
       {% endblock content %}
 
     </div> <!-- /container -->
-
+    
     {% block modal %}{% endblock modal %}
 
     {% block inline_javascript %}

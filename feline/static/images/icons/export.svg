@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="25px" viewBox="0 0 24 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Export</title>
+    <g id="Color-Versions" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="JobPost" transform="translate(-1134.000000, -407.000000)" stroke="#FFFFFF" stroke-width="2">
+            <g id="Button" transform="translate(1052.000000, 406.000000)">
+                <g id="Export" transform="translate(83.160000, 3.837530)">
+                    <polyline id="Path" points="13 14.8392902 13 21.1624705 0 21.1624705 0 8.16247048 7.02537876 8.16247048"></polyline>
+                    <line x1="4.19158829" y1="16.9903083" x2="15.0461685" y2="5.82141095" id="Line-3" stroke-linecap="square" transform="translate(9.618878, 11.405860) rotate(2.000000) translate(-9.618878, -11.405860) "></line>
+                    <line x1="13.2632823" y1="11.9198589" x2="19.5379941" y2="5.64514709" id="Line-3" stroke-linecap="square" transform="translate(16.400638, 8.782503) rotate(-45.000000) translate(-16.400638, -8.782503) "></line>
+                    <line x1="8.81207844" y1="7.85160169" x2="15.3165583" y2="1.34712188" id="Line-3" stroke-linecap="square" transform="translate(12.064318, 4.599362) rotate(45.000000) translate(-12.064318, -4.599362) "></line>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
