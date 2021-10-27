@@ -58,3 +58,7 @@ form label {
 .login-btn-facebook {
   background-color: #1A76F2;
   color: white; }
+
+a {
+  font-weight: 700;
+  color: #F78C2C; }

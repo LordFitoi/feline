@@ -97,26 +97,7 @@ form {
 }
 
 
-// Off Canvas Menu related code
-
-// .nav {
-//   margin-top: 6vmax;
-// }
-
-// .nav a {
-//   display: block;
-//   margin: 0;
-//   padding: 0.5vmax 3vmax;
-//   color: var(--menuTextColor);
-//   text-decoration: none;
-// }
-
-// .nav a:hover {
-//   background-color: #102A43;
-// }
-
-// .nav a:hover,
-// .nav a:focus,
-// .nav a:active {
-//   color: var(--menuTextHoverColor);
-// }
+a {
+  font-weight: 700;
+  color: #F78C2C;
+}

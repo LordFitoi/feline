@@ -2,11 +2,14 @@
 
 {% load i18n %}
 
-{% block head_title %}{% translate "Verify Your E-mail Address" %}{% endblock %}
+{% block head_title %}{% translate "Verifica tu Correo Electronico" %}{% endblock %}
 
 {% block inner %}
-    <h1>{% translate "Verify Your E-mail Address" %}</h1>
+    <h1 class="font-bold mb-4 text-lg">{% translate "Verifica tu correo" %}</h1>
 
-    <p>{% blocktranslate %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktranslate %}</p>
+    <p>{% blocktranslate %}
+        Hemos enviado un correo electrónico para tu verificación. Haz click en el enlace proporcionado para finalizar el proceso de registro. Comunícate con nosotros a <a style="color: #F78C2C;" class="font-bold" href="mailto:info@codetiger.co">info@codetiger.co</a> si no lo recibes en unos minutos.
+
+        {% endblocktranslate %}</p>
 
 {% endblock %}
