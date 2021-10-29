@@ -5,10 +5,19 @@
 
 {% for jobpost in object_list %}
     <div class="{% if forloop.first %}mt-8 sm:mt-0 {% endif %}py-6 px-4 rounded-lg border mb-2 flex" style="background-color: white;">
-        <img  class="w-16 mr-6 rounded-sm border-solid border-gray-200 border6" src="{{ jobpost.company.logo.url}}">
-        <div>
+        <div class="w-16 mr-6">
+            <img  class="border6" src="{{ jobpost.company.logo.url}}">
+        </div>
+        <div class="sm:relative sm:-top-1.5">
             <h3 class="text-xl"><a class="text-black hover:text-yellow-600" href="{{ jobpost.get_absolute_url }}">{{ jobpost.title }}</a></h3>
             <p class="text-sm">{{ jobpost.company }} - {{ jobpost.location.name }}</p>
+            <div class="flex justify-start">
+                <div class="font-light px-3 py-1 text-sm my-2 mr-3 w-max" style="background-color: #F6F7F9;">{{ jobpost.job_type }}</div>
+                {% if object.is_remote %} 
+                <div class="font-light px-3 py-1 text-sm my-2 mx-3 w-max" style="background-color: #F6F7F9;">Remoto</div>
+                {% endif %} 
+                
+            </div>
         </div>
 
     </div>

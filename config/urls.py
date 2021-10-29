@@ -5,8 +5,8 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
-from feline.jobposts.views import company_create_view, company_detail_view, jobpost_create_view, jobpost_detail_view, jobpost_list_view, jobpost_update_view 
-
+from feline.jobposts.views import company_create_view, company_detail_view, jobpost_create_view, jobpost_detail_view, jobpost_list_view, jobpost_update_view
+from feline.users.views import spanish_password_change_view, spanish_login_view, spanish_password_reset_confirm_view
 
 
 urlpatterns = [
@@ -24,10 +24,15 @@ urlpatterns = [
     ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
+    
     # User management
     path("users/", include("feline.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
-    # Your stuff: custom urls includes go here
+    path('accounts/login/', spanish_login_view, name='login'),
+    path('accounts/password_change/', spanish_password_change_view, name='password_change'),
+    path('accounts/reset/<uidb64>/<token>/', spanish_password_reset_confirm_view, name='password_reset_confirm'),
+    
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS

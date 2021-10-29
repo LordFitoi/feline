@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}Has terminado tu sesión.{% endblocktrans %}
