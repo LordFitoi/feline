@@ -1,34 +1,71 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static humanize %}
 
 {% block title %}User: {{ object.username }}{% endblock %}
 
 {% block content %}
-<div class="container">
+    <div class="mt-16 pb-16 border border-gray-200 rounded-md sm:mt-0 mx-auto center" style="background-color: white;">
+      <div class="w-full border border-gray-200 flex justify-between items-center h-20 y-20">
+        <img class="ml-4 w-20 h-20 relative top-6" src="{% static 'images/icons/new_user_profile.svg' %}"/>
+        <a style="background-color: #F78C2C; color: white;" class="py-2 px-4 rounded font-bold mr-6   " href="{% url 'create' %}">Crear Anuncio</a>
+      </div>
+      <div class="mt-8 mx-4">
+        <h2 class="font-bold">{{ object.username }}
+          {% if not object.verified %}
+          <img class="ml-1 w-4 inline relative -top-0.5" src="{% static 'images/icons/checkmark-icon.svg' %}" title="Esta usuario ha sido verificado">
+          {% endif %}
+        </h2>
+        <a class="font-regular" href="mailto:{{ object.email }}">{{ object.email }}</a>
+        <div class="mb-8">{% if object.name %}
+          <p>{{ object.name }}</p>
+        {% endif %}
+        </div>
 
-  <div class="row">
-    <div class="col-sm-12">
+      {% for company in object.company_set.all %}
 
-      <h2>{{ object.username }}</h2>
-      {% if object.name %}
-        <p>{{ object.name }}</p>
+      <div class="mt-8 flex">
+        {% if company.logo %}<img class="w-16 h-16" src="{{ company.logo.url }}"> {% endif %}
+        <div class="ml-6">
+          <h3 class="text-sm sm:text-2xl">
+            <a class="" style="color: black;" href="{{ company.get_absolute_url }}">{{ company.name }}</a>
+            <a class="inline border sm:relative sm:-top-1 text-sm font-bold rounded-md border-gray-900 py-1 px-6" style="color: black;" href="{% url 'create'%}">Editar</a>
+          </h3>
+          <p>{{ company.slogan }}</p>
+        </div>
+      </div>
+      {% if company.jobpost_set.all %}
+      <div class="mt-6">
+          <h3 class="mb-1 text-lg font-bold">Empleos</h3>
+
+          {% for job in company.jobpost_set.all %}
+          <div class="flex justify-between items-center pb-4 {% if company.jobpost_set.count > 1 and not foorlop.last %} border-b border-b-gray-300 {% endif%}">
+              <div style="max-width: 60%;">
+                  <h5 class="font-bold mt-4 text-base">{{ job.title }}</h5>
+                  <p class="font-light text-xs">{{ job.created | naturaltime }}</p>
+              </div>
+              <a class="border font-bold text-xs rounded-md border-gray-900 py-1 px-6 max-h-24" style="color: black;" href="{{ job.get_absolute_url }}">Editar</a>
+          </div>
+          {% endfor %}
+      </div>  
       {% endif %}
+        
+      
+      {% endfor %}
+
+  
+      {% if object == request.user %}
+  <!-- Action buttons -->
+  <!-- <div class="row">
+
+    <div class="col-sm-12">
+      <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
+      <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
+      
     </div>
+
+  </div> -->
+  <!-- End Action buttons -->
+  {% endif %}
   </div>
-
-{% if object == request.user %}
-<!-- Action buttons -->
-<div class="row">
-
-  <div class="col-sm-12">
-    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
-    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
-    <!-- Your Stuff: Custom user template urls -->
-  </div>
-
-</div>
-<!-- End Action buttons -->
-{% endif %}
-
 </div>
 {% endblock content %}

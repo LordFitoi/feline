@@ -60,7 +60,7 @@
                 <a class="text-gray-900 font-bold" href="{% url 'account_logout' %}">Salir</a>
               </li>
               <li class="ml-6">
-                <a class="text-gray-900 font-bold" href="{% url 'create' %}">Nueva Posición</a>
+                <a style="background-color: #F78C2C; color: white;" class="py-2 px-4 rounded font-bold" href="{% url 'create' %}">Crear Posición</a>
               </li>
             {% else %}    
               <li class="ml-6">
@@ -78,7 +78,7 @@
 
     </div>
 
-    <div class="container mx-auto">
+    <div class="sm:container sm:mx-auto mx-4 mb-16">
 
       {% if messages %}
           {% for message in messages %}
