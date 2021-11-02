@@ -5,8 +5,28 @@ from django.shortcuts import redirect
 from django.urls.base import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from .forms import CompanyForm, JobPostForm
+from .forms import CompanyForm, CompanySearchForm, ContactForm, JobPostForm
 from .models import Company, JobPost 
+
+
+class CompanyListView(ListView):
+    model = Company
+    paginate_by = 20
+    form_class = CompanySearchForm
+
+    def get_queryset(self):
+        form = self.form_class(self.request.GET)
+        if form.is_valid():
+            return Company.objects.filter(name__icontains=form.cleaned_data['keyword'])
+        return Company.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(CompanyListView, self).get_context_data(**kwargs)
+        context['form'] = self.form_class()
+        context['contact_form'] = ContactForm()
+        return context
+
+company_list_view = CompanyListView.as_view()
 
 
 class JobPostListView(ListView):

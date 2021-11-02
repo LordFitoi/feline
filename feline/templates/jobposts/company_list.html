@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static i18n l10n %}
+
+
+{% block body %}
+<div class="bg-white pt-8 sm:pt-24">
+    <div class="search-bar mx-4 sm:container sm:mx-auto">
+        <h1 class="font-bold sm:text-3xl sm:mb-6">Encuentra la compañía en la que deseas trabajar.</h1>
+        <div class="w-full sm:pb-16">
+            <form class="mt-4 sm:flex" action="{% url 'company-list' %}" method="get">
+                {{ form.keyword }}
+                <input class="w-full mt-4 py-2 px-4 rounded font-bold sm:h-14 sm:text-2xl" style="background-color: #F78C2C; color: white; margin-bottom: 32px;" type='submit' value="Buscar">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="lg:flex lg:container lg:mx-auto">
+
+    <div class="companies-list mx-4 mt-6 lg:mx-auto lg:w-2/3">
+        {% for company in object_list %}
+        <div class="w-full py-8 px-6 bg-white rounded mb-4 sm:container sm:mx-auto" data-company-url="{{ company.get_absolute_url }}">
+            <div class="float-right uppercase font-ligth text-xs sm:text-base">42 Trabajos disponibles</div>
+            <div class="sm:flex sm:clear-both">
+                {% if company.logo %}
+                <img class="w-10 h-10 sm:w-20 sm:h-20 rounded-full" src="{{ company.logo.url }}"/>
+                {% else %}
+                <img class="w-10 h-10 sm:w-20 sm:h-20 rounded-full" src="{% static 'images/icons/no-logo.svg' %}"/>
+                {% endif %}
+                <div class="sm:ml-6">
+                    <h3 class="text-gray-700 mt-2">
+                        <a class="text-gray-700 font-bold text-xl" href="{{ company.get_absolute_url }}" >{{ company.name }}</a>
+                    </h3>
+                    <p class="text-gray-700 mt-2">{{ company.tagline }}</p>
+                    <div class="flex flex-wrap">
+                        <div class="font-light px-3 py-1 text-xs my-2 mr-3 w-max" style="background-color: #F6F7F9;">{{ company.country.name }}</div>
+                        <div class="font-light px-3 py-1 text-xs my-2 mr-3 w-max" style="background-color: #F6F7F9;">{{ company.company_size}}</div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        {% empty %}
+            No tenemos compañias activas aun
+        {% endfor %}
+        
+    </div>
+
+    <div class="newsletter py-8 px-6 mx-4 bg-white rounded mb-4 lg:mx-auto lg:w-1/3 lg:mt-6">
+        <img class="w-10 h-10 sm:w-20 sm:h-20 rounded-full" src="{% static 'images/icons/no-logo.svg' %}"/>
+        <h3 class="text-gray-700 font-bold text-xl mt-4">Lista de Correo Semanal</h3>
+        <p class="mt-4">Unete a nuestra lista y te mantendremos informado cuando aparezcan los mejores trabajos nuevos en Republica Dominicana.</p>
+
+        <form class="contact-form flex flex-col items-center">
+            {{ contact_form.email }}
+            <input class="w-full mt-4 py-2 px-4 text-white rounded font-bold sm:h-14 sm:text-2xl" style="margin-bottom: 32px; background-color: #262626; margin-top: 1rem;" type='submit' value="Subscribirse">
+        </form>
+
+    </div>
+
+</div>
+
+{% if page_obj.has_other_pages %}
+    <div class="mt-12">
+        <span class="current mr-12">
+            Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }} [ {{ page_obj.paginator.count }} trabajos]
+        </span>
+
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a class="mx4 rounded-lg border py-1 px-3" href="?page=1">&laquo; Primer</a>
+                <a class="mx4 rounded-lg border py-1 px-3" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+    
+          
+    
+            {% if page_obj.has_next %}
+                <a class="mx4 rounded-lg border py-1 px-3" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                <a class="mx4 rounded-lg border py-1 px-3" href="?page={{ page_obj.paginator.num_pages }}">Ultima Pagina &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+
+{% endblock body %}

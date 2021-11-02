@@ -41,13 +41,16 @@
     <div class="" style="background-color: #fff;">
       {% include "menu/off-canvas.html" %}
       <div></div>
-      <nav class="hidden invisible sm:visible sm:flex justify-start sm:justify-between h-20 py-4 px-4 mb-12 container mx-auto items-center">
+      <nav class="hidden invisible sm:visible sm:flex justify-start sm:justify-between h-20 py-4 px-4 container mx-auto items-center">
         <a class="logo" href="{% url 'home' %}"><img class="h-8" src="{% static 'images/website-logo.svg' %}"></a>
 
         <div class="" id="navbarSupportedContent">
           <ul class="flex">
-            <li class="active">
+            <li class="">
               <a class="text-gray-900 font-bold" href="{% url 'home' %}">Empleos <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="ml-6">
+              <a class="text-gray-900 font-bold" href="{% url 'company-list' %}">Compañías <span class="sr-only">(current)</span></a>
             </li>
             
             {% if request.user.is_authenticated %}
@@ -78,6 +81,7 @@
 
     </div>
 
+    {% block body %}
     <div class="sm:container sm:mx-auto mx-4 mb-16">
 
       {% if messages %}
@@ -100,6 +104,7 @@
       {% endblock content %}
 
     </div> <!-- /container -->
+    {% endblock body %}
     
     {% block modal %}{% endblock modal %}
 

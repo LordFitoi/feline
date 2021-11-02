@@ -18,3 +18,11 @@ class CompanyForm(forms.ModelForm):
     class Meta:
         model = Company
         fields = ["name", "tagline", "logo", "company_size",  "description", "email", "company_url", "country"]
+
+
+class CompanySearchForm(forms.Form):
+    keyword = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Busca por nombre de la compañía o palabra clave.'}))
+
+
+class ContactForm(forms.Form):
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Introduce tu correo'}))
