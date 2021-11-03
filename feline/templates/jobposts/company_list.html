@@ -15,15 +15,16 @@
     </div>
 </div>
 
-{% if keyword %}
-    <div class="mx-4 sm:mx-auto sm:container">
-        <p class="my-4 font-bold">Resultados para termino: "{{ keyword }}"</p>
-    </div>
-{% endif %}
-
 <div class="lg:flex lg:container lg:mx-auto">
 
     <div class="companies-list mx-4 mt-6 lg:mx-auto lg:w-2/3">
+
+        {% if keyword %}
+            <div class="mx-4 sm:mx-auto sm:container">
+                <p class="my-4 font-bold">Resultados para termino: "{{ keyword }}"</p>
+            </div>
+        {% endif %}
+        
         {% for company in object_list %}
         <div class="w-full py-8 px-6 bg-white rounded mb-4 sm:container sm:mx-auto" data-company-url="{{ company.get_absolute_url }}">
             <div class="float-right uppercase font-ligth text-xs sm:text-base">{{ company.get_total_jobs }}</div>
