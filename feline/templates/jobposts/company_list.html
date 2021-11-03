@@ -26,7 +26,7 @@
     <div class="companies-list mx-4 mt-6 lg:mx-auto lg:w-2/3">
         {% for company in object_list %}
         <div class="w-full py-8 px-6 bg-white rounded mb-4 sm:container sm:mx-auto" data-company-url="{{ company.get_absolute_url }}">
-            <div class="float-right uppercase font-ligth text-xs sm:text-base">42 Trabajos disponibles</div>
+            <div class="float-right uppercase font-ligth text-xs sm:text-base">{{ company.get_total_jobs }}</div>
             <div class="sm:flex sm:clear-both">
                 {% if company.logo %}
                 <img class="w-10 h-10 sm:w-20 sm:h-20 rounded-full" src="{{ company.logo.url }}"/>

@@ -54,6 +54,12 @@ class Company(TimeStampedModel, models.Model):
     class Meta:
         verbose_name_plural = "companies"
 
+    def get_total_jobs(self) -> str:
+        jobposts_count = self.jobpost_set.count()
+        if jobposts_count == 1:
+            return "1 Trabajo disponible"
+        return f"{jobposts_count} Trabajos disponibles"
+
     def get_absolute_url(self) -> str:
         return reverse('company-detail', args=[str(self.slug)])
 
