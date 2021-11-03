@@ -80,6 +80,7 @@ THIRD_PARTY_APPS = [
     "taggit",
     "ckeditor",
     "django_countries",
+    "hitcount",
 ]
 
 LOCAL_APPS = [
@@ -339,3 +340,6 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 SOCIALACCOUNT_QUERY_EMAIL = True
+
+
+HITCOUNT_HITS_PER_IP_LIMIT = 1

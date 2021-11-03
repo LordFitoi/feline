@@ -6,6 +6,8 @@ from django.shortcuts import redirect
 from django.urls.base import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
+from hitcount.views import HitCountDetailView
+
 from .forms import CompanyForm, CompanySearchForm, ContactForm, JobPostForm, JobPostSearchForm
 from .models import Category, Company, JobPost 
 
@@ -60,10 +62,11 @@ class JobPostListView(ListView):
 jobpost_list_view = JobPostListView.as_view()
 
 
-class JobPostDetailView(DetailView):
+class JobPostDetailView(HitCountDetailView):
     model = JobPost
     slug_field = "slug"
     slug_url_kwarg = "slug"
+    count_hit = True 
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
@@ -90,7 +93,6 @@ class JobPostCreateView(LoginRequiredMixin, CreateView):
             return redirect(reverse('company-create'))
         return super().dispatch(request, *args, **kwargs)
 
-        
 
 jobpost_create_view = JobPostCreateView.as_view()
 
@@ -105,6 +107,7 @@ class JobPostUpdateView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         context['form'].fields['company'].queryset = Company.objects.filter(user=self.request.user)
         return context
+
 
 jobpost_update_view = JobPostUpdateView.as_view()
 
@@ -123,12 +126,14 @@ class CompanyCreateView(CreateView):
 company_create_view = CompanyCreateView.as_view()
 
 
-class CompanyDetailView(DetailView):
+class CompanyDetailView(HitCountDetailView):
     model = Company
-
+    count_hit = True 
+    
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['jobs'] = JobPost.objects.filter(company=self.object)[:10]
         return context
+
 
 company_detail_view = CompanyDetailView.as_view()

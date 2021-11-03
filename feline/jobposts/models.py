@@ -1,13 +1,19 @@
 from enum import Enum
 from feline.users.models import User
-from django_countries.fields import CountryField
+
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models.fields.related import ForeignKey
+
+from django_countries.fields import CountryField
 from django_extensions.db.fields import AutoSlugField
 from django_extensions.db.models import TitleSlugDescriptionModel, TimeStampedModel
 from django.urls import reverse
 
+
 from ckeditor.fields import RichTextField
+from hitcount.conf import settings as hitcount_settings
+from hitcount.mixins import HitCountModelMixin
 from taggit.managers import TaggableManager
 
 
@@ -47,6 +53,13 @@ class Company(TimeStampedModel, models.Model):
       default=CompanySize.MICRO  
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    # count views of the page
+    hit_count_generic = GenericRelation(
+        hitcount_settings.HITCOUNT_HITCOUNT_MODEL,
+        object_id_field='object_pk',
+        related_query_name='hit_count_generic_relation'
+    )
 
     def __str__(self):
         return self.name
@@ -119,6 +132,13 @@ class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
 
     sponsor_relocation = models.BooleanField(default=False)
     is_remote = models.BooleanField(default=False)
+
+    # count views on the page
+    hit_count_generic = GenericRelation(
+        hitcount_settings.HITCOUNT_HITCOUNT_MODEL,
+        object_id_field='object_pk',
+        related_query_name='hit_count_generic_relation'
+    )
 
     class Meta:
         ordering = ['-created']
