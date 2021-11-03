@@ -28,9 +28,9 @@
                 <p class="my-4 font-bold">Resultados para termino: "{{ keyword }}"</p>
             </div>
         {% endif %}
-        
+
         {% for jobpost in object_list %}
-        <div class="w-full py-8 px-6 bg-white rounded mb-4 sm:container sm:mx-auto" data-company-url="{{ company.get_absolute_url }}">
+        <div class="cursor-pointer w-full py-8 px-6 bg-white rounded mb-4 sm:container sm:mx-auto md:hover:shadow-xl hover:z-10 hover-parent transition-all ease-in-out duration-300" data-path="{{ jobpost.get_absolute_url }}">
             <div class="sm:flex sm:clear-both">
                 {% if jobpost.company.logo %}
                 <img class="w-10 h-10 sm:w-20 sm:h-20 rounded-full" src="{{ jobpost.company.logo.url }}"/>
@@ -98,7 +98,16 @@
         </form>
 
     </div>
+    <script>
+        const cards = document.querySelectorAll('[data-path]')
 
+        for (const card of cards) {
+            card.addEventListener('click', function(event) {
+                event.preventDefault();
+                window.location = this.dataset.path;
+            })
+        }
+    </script>
 </div>
 
 
