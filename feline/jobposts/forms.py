@@ -2,7 +2,7 @@ from django import forms
 from .models import Category, Company, JobPost
 from ckeditor.widgets import CKEditorWidget
 
-JOB_CATEGORIES_CHOICES = [('--', 'Categoria')] + [(category.name, category.name) for category in Category.objects.all()]
+JOB_CATEGORIES_CHOICES = [] # [('--', 'Categoria')] + [(category.name, category.name) for category in Category.objects.all()]
 
 
 class JobPostForm(forms.ModelForm):
