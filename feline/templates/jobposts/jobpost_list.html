@@ -1,7 +1,28 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
-{% block content %}
+{% block body %}
+<div class="bg-white pt-8 sm:pt-24">
+    <div class="search-bar mx-4 sm:container sm:mx-auto">
+        <h1 class="font-bold sm:text-3xl sm:mb-6">Encuentra tu trabajo soñado, mas rapido y mejor.</h1>
+        <div class="w-full sm:pb-16">
+            <form class="mt-4 sm:flex" action="{% url 'home' %}" method="get">
+                {{ form.keyword }}
+                {{ form.category }}
+                <input class="w-full mt-4 py-2 px-4 rounded font-bold sm:h-14 sm:text-2xl" style="background-color: #F78C2C; color: white; margin-bottom: 32px;" type='submit' value="Buscar">
+            </form>
+        </div>
+    </div>
+</div>
+{% if keyword and category %}
+    <div class="mx-4 sm:mx-auto sm:container">
+        <p class="my-4 font-bold">Resultados para termino: "{{ keyword }}" Categoria: "{{ category }}"</p>
+    </div>
+{% elif keyword %}
+    <div class="mx-4 sm:mx-auto sm:container">
+        <p class="my-4 font-bold">Resultados para termino: "{{ keyword }}"</p>
+    </div>
+{% endif %}
 
 {% for jobpost in object_list %}
     <div class="{% if forloop.first %}mt-8 sm:mt-0 {% endif %}py-6 px-4 rounded-lg border mb-2 flex" style="background-color: white;">
@@ -45,7 +66,10 @@
     {% endif %}
 
 {% empty %}
-    <p>They are no jobs available</p>
+    <div class="mx-4 sm:mx-auto sm:container">
+        <p class="text-center">No tenemos trabajos con esos criterios</p>
+    </div>
+    
 {% endfor %}
 
-{% endblock content %}
+{% endblock body %}

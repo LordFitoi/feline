@@ -1,24 +1,26 @@
 from __future__ import annotations
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.postgres.search import SearchVector
 from django.shortcuts import redirect
 from django.urls.base import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from .forms import CompanyForm, CompanySearchForm, ContactForm, JobPostForm
-from .models import Company, JobPost 
+from .forms import CompanyForm, CompanySearchForm, ContactForm, JobPostForm, JobPostSearchForm
+from .models import Category, Company, JobPost 
 
 
 class CompanyListView(ListView):
     model = Company
     paginate_by = 20
     form_class = CompanySearchForm
+    search_fields = ('title', 'description', 'tag_line', 'country')
 
     def get_queryset(self):
         form = self.form_class(self.request.GET)
         if form.is_valid():
-            return Company.objects.filter(name__icontains=form.cleaned_data['keyword'])
-        return Company.objects.all()
+            return self.model.objects.annotate(search=SearchVector(*self.search_fields)).filter(search=form.cleaned_data['keyword'])
+        return self.model.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super(CompanyListView, self).get_context_data(**kwargs)
@@ -26,12 +28,33 @@ class CompanyListView(ListView):
         context['contact_form'] = ContactForm()
         return context
 
+
 company_list_view = CompanyListView.as_view()
 
 
 class JobPostListView(ListView):
     model = JobPost
     paginate_by = 10
+    form_class = JobPostSearchForm
+    search_fields = ('title', 'description', 'how_to_apply', 'job_type', 'category')
+
+    def get_queryset(self):
+        form = self.form_class(self.request.GET)
+        queryset = self.model.objects.all()
+        if form.is_valid():
+            if form.cleaned_data['keyword']:
+                queryset = queryset.annotate(search=SearchVector(*self.search_fields)).filter(search=form.cleaned_data['keyword'])
+            if form.cleaned_data['category'] != '--':
+                queryset = queryset.filter(category__name=form.cleaned_data['category'])
+        return queryset
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super(JobPostListView, self).get_context_data(**kwargs)
+        context['form'] = self.form_class()
+        context['contact_form'] = ContactForm()
+        context['keyword'] = self.request.GET.get('keyword', None)
+        context['category'] = self.request.GET.get('category', None)
+        return context
 
 
 jobpost_list_view = JobPostListView.as_view()

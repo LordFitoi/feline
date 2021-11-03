@@ -15,6 +15,12 @@
     </div>
 </div>
 
+{% if keyword %}
+    <div class="mx-4 sm:mx-auto sm:container">
+        <p class="my-4 font-bold">Resultados para termino: "{{ keyword }}"</p>
+    </div>
+{% endif %}
+
 <div class="lg:flex lg:container lg:mx-auto">
 
     <div class="companies-list mx-4 mt-6 lg:mx-auto lg:w-2/3">
@@ -42,7 +48,10 @@
             
         </div>
         {% empty %}
-            No tenemos compañias activas aun
+            <div class="mx-4 sm:mx-auto sm:container">
+                <p class="text-center">No tenemos compañias activas con ese texto</p>
+            </div>
+            
         {% endfor %}
         
     </div>
