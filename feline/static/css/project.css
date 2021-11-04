@@ -94,6 +94,10 @@ a {
   .search-bar .category-field {
     height: 56px; } }
 
+@media (min-width: 1536px) {
+  .container, .sm\:container, .lg\:container {
+    max-width: 1280px !important; } }
+
 .search-bar .category-field {
   font-weight: 500;
   color: rgba(0, 0, 0, 0.75);

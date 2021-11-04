@@ -7,7 +7,12 @@
 <div class="flex flex-col sm:mx md:flex-row justify-start">
     <div class="w-full -auto md:w-2/3 py-6 px-4 mb-4 border border-gray-200 rounded-md" style="background-color: white;">
         <div class="pb-6 border-b border-b-gray-300">
-            <img class="w-16 h-16 rounded-sm border-solid border-gray-200 border6" src="{{ object.logo.url }}">
+
+            {% if object.logo %}
+                <img class="w-16 h-16  sm:w-20 sm:h-20 rounded-full" src="{{ object.logo.url }}"/>
+            {% else %}
+                <img class="w-16 h-16  sm:w-20 sm:h-20 rounded-full" src="{% static 'images/icons/no-logo.svg' %}"/>
+            {% endif %}
 
             <div class="mt-4">
                 <div class="flex">
