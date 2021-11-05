@@ -24,9 +24,9 @@
                 <p class="my-4 font-bold">Resultados para termino: "{{ keyword }}"</p>
             </div>
         {% endif %}
-        
+
         {% for company in object_list %}
-        <div class="w-full py-8 px-6 bg-white rounded mb-4 sm:container sm:mx-auto" data-company-url="{{ company.get_absolute_url }}">
+        <div class="w-full py-8 px-6 bg-white rounded mb-4 sm:container sm:mx-auto md:hover:shadow-xl hover:z-10 hover-parent transition-all ease-in-out duration-300" data-path="{{ company.get_absolute_url }}">
             <div class="float-right uppercase font-ligth text-xs sm:text-base">{{ company.get_total_jobs }}</div>
             <div class="sm:flex sm:clear-both">
                 {% if company.logo %}

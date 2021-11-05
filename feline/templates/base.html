@@ -119,5 +119,15 @@
     {% block inline_javascript %}
     {# Script tags with only code, no src (defer by default) #}
     {% endblock inline_javascript %}
+    <script>
+      const cards = document.querySelectorAll('[data-path]')
+
+      for (const card of cards) {
+          card.addEventListener('click', function(event) {
+              event.preventDefault();
+              window.location = this.dataset.path;
+          })
+      }
+  </script>
   </body>
 </html>
