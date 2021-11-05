@@ -116,7 +116,7 @@ class CompanyCreateView(CreateView):
     form = CompanyForm
     model = Company
     success_url =  "/new"
-    fields = ["logo", "name", "description", "email", "company_url", "country"]
+    fields = ["logo", "name", "tagline", "description", "email", "company_url", "country"]
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -129,7 +129,7 @@ company_create_view = CompanyCreateView.as_view()
 class CompanyDetailView(HitCountDetailView):
     model = Company
     count_hit = True 
-    
+
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['jobs'] = JobPost.objects.filter(company=self.object)[:10]
