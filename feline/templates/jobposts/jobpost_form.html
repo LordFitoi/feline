@@ -73,12 +73,21 @@
         <label for="{{ form.salary_range_end_at.id_for_label }}">Salario termina en:</label>
         {{ form.salary_range_end_at }}
     </div>
-    <div class="fieldWrapper">
-        {{ form.sponsor_relocation.errors }}
-        <label for="{{ form.sponsor_relocation.id_for_label }}">Patrocina Relocación</label>
-        {{ form.sponsor_relocation }}
+    <div >
+        {{ form.is_remote.errors }}
+        <div class="flex items-center">
+            <div class="mr-1">{{ form.is_remote }}</div>
+            <label for="{{ form.is_remote.id_for_label }}">Es Remoto</label>
+        </div>
     </div>
-
-    <input type="submit" value="Crear Anuncio">
+    <div>
+        {{ form.sponsor_relocation.errors }}
+        <div class="flex items-center">
+            
+            <div class="mr-1">{{ form.sponsor_relocation }}</div><label for="{{ form.sponsor_relocation.id_for_label }}">Patrocina Relocación</label>
+            
+        </div>
+    </div>
+    <input style="background-color: #F78C2C;" class="py-2 px-4 rounded font-bold text-white" type="submit" value="Crear Anuncio">
 </form>
 {% endblock content %}

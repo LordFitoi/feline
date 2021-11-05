@@ -43,11 +43,15 @@
                     </h3>
                     <p class="text-gray-700 mt-2">{{ jobpost.company }}</p>
                     <div class="flex flex-wrap">
-                        <div class="font-light px-3 py-1 text-xs my-2 w-max" style="background-color: #F6F7F9;">{{ jobpost.job_type }}</div>
-                        <div class="font-light px-3 py-1 text-xs my-2 mr-3 w-max" style="background-color: #F6F7F9;">{{ jobpost.location.name }}</div>
-                        {% if object.is_remote %} 
-                        <div class="font-light px-3 py-1 text-xs my-2 mr-3 w-max" style="background-color: #F6F7F9;">Remoto</div>
-                {% endif %}
+                        <div class="font-light px-3 py-1 text-xs my-2 mr-2 w-max" style="background-color: #F6F7F9;">{{ jobpost.job_type }}</div>
+
+                        {% if not jobpost.is_remote %} 
+                        <div class="font-light px-3 py-1 text-xs my-2 mr-2 w-max" style="background-color: #F6F7F9;">{{ jobpost.location.name }}</div>
+                        {% endif %}
+
+                        {% if jobpost.is_remote %} 
+                        <div class="font-light px-3 py-1 text-xs my-2 mr-2 w-max" style="background-color: #F6F7F9;">Remoto</div>
+                         {% endif %}
                         
                     </div>
                 </div>
