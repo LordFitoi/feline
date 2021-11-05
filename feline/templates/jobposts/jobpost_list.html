@@ -58,6 +58,12 @@
             </div>
             
         </div>
+        {% empty %}
+            <div class="py-8 mx-4 sm:mx-auto sm:container">
+                <p class="text-center">No tenemos trabajos con ese estos criterios</p>
+            </div>
+            
+        {% endfor %}
 
         {% if page_obj.has_other_pages %}
             <div class="mt-12">
@@ -82,12 +88,6 @@
         {% endif %}
 
 
-        {% empty %}
-            <div class="py-8 mx-4 sm:mx-auto sm:container">
-                <p class="text-center">No tenemos trabajos con ese estos criterios</p>
-            </div>
-            
-        {% endfor %}
         
     </div>
 
