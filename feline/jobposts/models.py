@@ -102,7 +102,7 @@ class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
     # TODO:    Location => Countries + ‘Remote’ (primera option) + Estados Unidos 
     #          + Republica Dominicana
     location = CountryField()
-    how_to_apply = RichTextField()
+    how_to_apply = RichTextField(blank=True, null=True)
 
     # TODO: Validation either the application_url or the application_email is fill out
     application_url = models.URLField(blank=True, null=True)
