@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="flex flex-col sm:mx md:flex-row justify-start">
-    <div class="w-full -auto md:w-2/3 py-6 px-4 mb-4 border border-gray-200 rounded-md" style="background-color: white;">
+    <div class="job-container w-full -auto md:w-2/3 py-6 px-4 mb-4 border border-gray-200 rounded-md" style="background-color: white;">
         <div class="pb-6 border-b border-b-gray-300">
 
             {% if object.logo %}
@@ -49,14 +49,7 @@
             
             
         </div>
-        {% if object.how_to_apply %}
-        <div class="my-2">
-            <h3 class="mt-8 mb-1 text-lg font-bold">Como aplicar</h3>
-            
-            {{ object.how_to_apply | safe }}
-        </div>
-        {% endif %}
-        <div class="mt-6">
+        <div class="mt-6 rich-text-description mb-6">
             {{ object.description | safe }}
         </div>
 
