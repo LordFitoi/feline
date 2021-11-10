@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from django.db import models
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import redirect
@@ -7,7 +9,6 @@ from django.urls.base import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from hitcount.views import HitCountDetailView
-
 from .forms import CompanyForm, CompanySearchForm, ContactForm, JobPostForm, JobPostSearchForm
 from .models import Category, Company, JobPost 
 
@@ -71,6 +72,7 @@ class JobPostDetailView(HitCountDetailView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['other_jobs'] = JobPost.objects.filter(company=self.object.company).exclude(id=self.object.id)
+        
         return context
 
 
@@ -137,3 +139,4 @@ class CompanyDetailView(HitCountDetailView):
 
 
 company_detail_view = CompanyDetailView.as_view()
+

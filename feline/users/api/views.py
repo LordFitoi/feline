@@ -1,11 +1,13 @@
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin, CreateModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.permissions import AllowAny
+from newsletter.models import Subscription
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, SubscriptionSerializer
 
 User = get_user_model()
 
@@ -22,3 +24,13 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
     def me(self, request):
         serializer = UserSerializer(request.user, context={"request": request})
         return Response(status=status.HTTP_200_OK, data=serializer.data)
+
+
+
+class SubscribeViewSet(CreateModelMixin, GenericViewSet):
+    permission_classes = (AllowAny,)
+
+    serializer_class = SubscriptionSerializer
+    queryset = Subscription.objects.all()
+
+

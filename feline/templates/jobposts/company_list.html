@@ -57,17 +57,39 @@
         
     </div>
 
+
+
+    
     <div class="newsletter py-8 px-6 mx-4 bg-white rounded mb-4 lg:mx-auto lg:w-1/3 lg:mt-6">
         <img class="w-10 h-10 sm:w-20 sm:h-20 rounded-full" src="{% static 'images/icons/no-logo.svg' %}"/>
         <h3 class="text-gray-700 font-bold text-xl mt-4">Lista de Correo Semanal</h3>
         <p class="mt-4">Unete a nuestra lista y te mantendremos informado cuando aparezcan los mejores trabajos nuevos en Republica Dominicana.</p>
-
-        <form class="contact-form flex flex-col items-center">
-            {{ contact_form.email }}
-            <input class="w-full mt-4 py-2 px-4 text-white rounded font-bold sm:h-14 sm:text-2xl" style="margin-bottom: 32px; background-color: #262626; margin-top: 1rem;" type='submit' value="Subscribirse">
+        
+        <form id="id_newsletter" class="contact-form flex flex-col items-center">
+            <input type="text" name="email_field" required id="id_email_field" placeholder="Introduce tu correo">
+            <button class="w-full mt-4 py-2 px-4 text-white rounded font-bold sm:h-14 sm:text-2xl" style="margin-bottom: 32px; background-color: #262626; margin-top: 1rem;" id="id_submit" name="submit" value="Subscribe" type="submit">Subscribirse</button>
         </form>
-
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        let form = document.getElementById('id_newsletter'); // selecting the form
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault()
+            
+            let data = new FormData();
+            let email_field = document.getElementById('id_email_field')
+
+            data.append("email_field", email_field.value)  
+            data.append("csrfmiddlewaretoken", '{{csrf_token}}')
+            
+            axios.post('api/newsletter/', data)
+                .then(res => {
+                    email_field.value = "";
+                    alert("Form Submitted");
+                }).catch(errors => console.log(errors))
+        })
+    </script>
 
 </div>
 

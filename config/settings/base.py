@@ -81,6 +81,8 @@ THIRD_PARTY_APPS = [
     "ckeditor",
     "django_countries",
     "hitcount",
+    'easy_thumbnails',
+    "newsletter"
 ]
 
 LOCAL_APPS = [
@@ -343,3 +345,15 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 
 
 HITCOUNT_HITS_PER_IP_LIMIT = 1
+
+# NESLETTER
+NEWSLETTER_THUMBNAIL = 'easy-thumbnails'
+
+# Amount of seconds to wait between each email. Here 100ms is used.
+NEWSLETTER_EMAIL_DELAY = 0.1
+
+# Amount of seconds to wait between each batch. Here one minute is used.
+NEWSLETTER_BATCH_DELAY = 60
+
+# Number of emails in one batch
+NEWSLETTER_BATCH_SIZE = 100

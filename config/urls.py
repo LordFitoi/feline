@@ -32,7 +32,7 @@ urlpatterns = [
     path('accounts/login/', spanish_login_view, name='login'),
     path('accounts/password_change/', spanish_password_change_view, name='password_change'),
     path('accounts/reset/<uidb64>/<token>/', spanish_password_reset_confirm_view, name='password_reset_confirm'),
-    
+    path('newsletter/', include('newsletter.urls'))
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
