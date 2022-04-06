@@ -43,15 +43,16 @@ class Company(TimeStampedModel, models.Model):
     tagline = models.CharField("Slogan de la compañía", max_length=350, blank=True, null=True)
     name = models.CharField('Nombre de la Compañía', max_length=255)
     slug = AutoSlugField('slug', populate_from='name')
-    email = models.EmailField()
+    email = models.EmailField(blank=True)
     verified = models.BooleanField(blank=True, null=True)
     company_url = models.URLField("Pagina de la Compañía", blank=True)
-    country = CountryField("País")
+    country = CountryField("País", blank=True, null=True)
     company_size = models.CharField("Tamaño de la compañía",
       max_length=20,
       choices=CompanySize.choices,
       default=CompanySize.MICRO  
     )
+    source = models.CharField(default="User Generated", max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     # count views of the page
@@ -101,7 +102,7 @@ class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
     company = ForeignKey(Company, on_delete=models.CASCADE)
     # TODO:    Location => Countries + ‘Remote’ (primera option) + Estados Unidos 
     #          + Republica Dominicana
-    location = CountryField()
+    location = CountryField(blank=True, null=True)
     how_to_apply = RichTextField(blank=True, null=True)
 
     # TODO: Validation either the application_url or the application_email is fill out
@@ -129,7 +130,7 @@ class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
 
     salary_range_start_at =  models.IntegerField(blank=True, null=True)
     salary_range_end_at = models.IntegerField(blank=True, null=True)
-
+    source = models.CharField(default="User Generated", max_length=255)
     sponsor_relocation = models.BooleanField(default=False)
     is_remote = models.BooleanField(default=False)
 
