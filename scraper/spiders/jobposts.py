@@ -1,6 +1,7 @@
 import scrapy
 from urllib.parse import urlparse
 
+
 class HimalayasExtractor:
     source_name = "himalayas.app"
     url = "https://himalayas.app/jobs"
@@ -13,6 +14,7 @@ class HimalayasExtractor:
         kwargs["country"] = country.css("span::text").get()
 
         kwargs["company"] = {
+            "logo": response.xpath("//header//header//img/@src").get(),
             "name": response.css("h1 span::text").get(),
             "description": response.css(".trix-content").get()
         }
@@ -21,6 +23,7 @@ class HimalayasExtractor:
 
     def parse_job(self, response):
         meta = response.xpath("//label/..")
+        apply_now = response.xpath("//h3[contains(text(), 'Apply now')]/../..")
 
         # ABOUT THIS ROLE
         job_type = meta.xpath("//label[contains(text(), 'Job type')]/..")
@@ -31,6 +34,7 @@ class HimalayasExtractor:
         company_href = meta.xpath("//label[contains(text(), 'Primary industry')]/../../..//a/@href").get()
 
         jobpost = {
+            "application_url": apply_now.css('a').xpath('@href').get(),
             "title": response.css("h1::text").get(),
             "description": response.css(".trix-content").get(),
             "job_type": job_type.css("p::text").get(),

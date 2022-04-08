@@ -92,3 +92,19 @@ Working with Social Media Accounts
 If you need to install local certificates on your machine you can follow the following site:
 
 https://timonweb.com/django/https-django-development-server-ssl-certificate/
+
+
+Scraper
+^^^^^^^
+
+We use the scraper to get data about jobpost and companies from others pages.
+To run manually the scraper, just run:
+
+::
+
+  $ python manage.py crawl
+
+
+Pages scrapped:
+
+- Himalayas
