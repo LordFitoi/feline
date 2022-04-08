@@ -9,8 +9,8 @@
 
 BOT_NAME = 'scraper'
 
-SPIDER_MODULES = ['scraper.spiders']
-NEWSPIDER_MODULE = 'scraper.spiders'
+SPIDER_MODULES = ['feline.scraper.spiders']
+NEWSPIDER_MODULE = 'feline.scraper.spiders'
 
 IMAGES_STORE = 'feline/media'
 
@@ -64,5 +64,5 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'scraper.pipelines.JobPostPipeline': 300,
+   'feline.scraper.pipelines.JobPostPipeline': 300,
 }

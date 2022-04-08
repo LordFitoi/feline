@@ -86,7 +86,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "feline.users.apps.UsersConfig",
     "feline.jobposts.apps.JobpostsConfig",
-    "scraper"
+    "feline.scraper"
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
