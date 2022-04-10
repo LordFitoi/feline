@@ -57,16 +57,16 @@ class ScraperScheduleHandler:
         DjangoJobExecution.objects.delete_old_job_executions(max_age)
 
     @staticmethod
-    def task(crawler):
+    def scraper_crawl(crawler):
         """
-        This is the job that will be called by the scheduler when it fired.
+        This job active the scraper crawling.
         """
         d = crawler.crawl(JobPostSpider)
         d.addBoth(lambda _: reactor.stop())
         reactor.run()
 
     def start(self, **kwargs):
-        self.add_job(self.task, CronTrigger(**kwargs), self.crawler)
+        self.add_job(self.scraper_crawl, CronTrigger(**kwargs), self.crawler)
         self.add_job(self.cleanup_job_entries, CronTrigger(
             day_of_week="mon", hour="00", minute="00"))
     
@@ -94,15 +94,15 @@ class Command(BaseCommand):
         },
         "-H": {
             "dest": "hour",
-            "type": int,
+            "type": str,
             "help": """
                 The exact hour of the day. Value format (int): 0 - 23.
                 If you write *, the task will run every hour.""",
-            "default": "0"
+            "required": False
         },
         "-m": {
             "dest": "minute",
-            "type": int,
+            "type": str,
             "help": """
                 The exact minute of the hour. Value format (int): 0 - 59.
                 If you write *, the task will run every minute.""",
