@@ -61,7 +61,7 @@ class JobPostPipeline:
         source = item.get("source")
         jobpost_kwargs = item.get("jobpost")
         company_kwargs = item.get("company")
-        
+
         if country := item.get("country"):
             country_iso = countries.by_name(_(item.get("country")))
             company_kwargs["country"] = country_iso
