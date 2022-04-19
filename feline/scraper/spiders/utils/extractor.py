@@ -1,76 +1,63 @@
 from urllib.parse import urlparse
-from .configurations import Configuration
 
 class Extractor:
-    generic_config_class: object
-    job_config_class: object
-    company_config_class: object
+    config_class: object
     
     def __init__(self):
-        self.generic = self.generic_config_class()
-        self.company = self.company_config_class()
-        self.job = self.job_config_class()
+        self.config = self.config_class()
         
     # PARSING DATA:
     # --------------------------------------------
-    def is_valid_job(self, job_card):
-        self.generic.set_response(job_card)
-        return self.generic._valid_job.get()
+    def parse_config(self, response, **kwargs):
+        self.config.set_response(response)
 
-    def parse_company(self, response, **kwargs):
-        self.generic.set_response(response)
-        self.company.set_response(response)
-
-        kwargs["country"] = self.generic._country.get()
+        kwargs["country"] = self.config._country.get()
         kwargs["company"] = {
-            "logo": self.company._logo,
-            "name": self.company._name.get(),
-            "description": self.company._description.get()
+            "logo": self.config._company_logo,
+            "name": self.config._company_name.get(),
+            "description": self.config._company_description.get()
         }
 
         return kwargs
 
     def parse_job(self, response, **kwargs):
-        self.job.set_response(response)
+        self.config.set_response(response)
 
         kwargs["jobpost"] = {
-            "application_url": self.job._application_url.get(),
-            "category": self.job._category.get(),
-            "description": self.job._description.get(),
-            "job_type": self.job._job_type.get(),
-            "title": self.job._title.get()
+            "application_url": self.config._job_application_url.get(),
+            "category": self.config._job_category.get(),
+            "description": self.config._job_description.get(),
+            "job_type": self.config._job_type.get(),
+            "title": self.config._job_title.get()
         }
 
-        self.company.set_response(response)
-
         return response.follow(
-            url = self.company._url.get(),
-            callback = self.parse_company,
+            url = self.config._company_url.get(),
+            callback = self.parse_config,
             cb_kwargs = kwargs
         )
 
     def parse_page(self, response, **kwargs):
-        self.job.set_response(response)
+        self.config.set_response(response)
         
-        for job_card in self.job._cards:
-            if not self.is_valid_job(job_card):
+        for job_card in self.config._job_cards:
+            self.config.set_response(job_card)
+
+            if not self.config._valid_job:
                 continue
 
-            self.job.set_response(job_card)
-
             yield response.follow(
-                url = self.job._url.get(),
+                url = self.config._job_url.get(),
                 callback = self.parse_job,
                 cb_kwargs = kwargs
             )
 
     def parse(self, response, source):
-        self.generic.set_response(response)
+        self.config.set_response(response)
 
-        for page_href in self.generic._pages_url:
+        for page_href in self.config._pages_url:
             yield response.follow(
                 url = page_href,
                 callback = self.parse_page,
                 cb_kwargs=dict(source=source)
             )
-

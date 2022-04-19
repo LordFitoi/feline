@@ -20,12 +20,29 @@ class Configuration:
 
 # HIMALAYAS CONFIGURATION
 # --------------------------------------------------
-class HimalayasGenericConfig(Configuration):
+class HimalayasConfig(Configuration):
     root_url = "https://himalayas.app/jobs"
     country = "//label/..//label[contains(text(), 'Countries')]/..//span/text()"
     pages_url = "//div[@role='navigation']/div[@id='page-nums']/a/text()"
     valid_job = "//*[@class='badge badge-gray no-hover']//span/@data-badge-value"
     
+    job_application_url = "//h3[contains(text(), 'Apply now')]/../..//a/@href"
+    job_category = "//label/..//label[contains(text(), 'Job categories')]/..//span/text()"
+    job_tags = "//label/..//label[contains(text(), 'Skills')]/.."
+    job_cards = "//ul//*[@name='card']"
+    job_description = "//*[@class='trix-content']"
+    job_title = "//h1/text()"
+    job_type = "//label/..//label[contains(text(), 'Job type')]/..//p/text()"
+    job_url = "@data-path"
+
+    company_description = "//*[@class='trix-content']"
+    company_logo = "//header//header//img/@src"
+    company_name = "//h1//span/text()"
+    company_url = "//label[contains(text(), 'Primary industry')]/../../..//a/@href"
+
+    def get_company_logo(self, xpath):
+        return self.response.xpath(xpath).get()
+
     def get_pages_url(self, xpath):
         pages_count = self.response.xpath(xpath)[-1].get()
 
@@ -35,51 +52,31 @@ class HimalayasGenericConfig(Configuration):
         ]
 
 
-class HimalayasJobConfig(Configuration):
-    application_url = "//h3[contains(text(), 'Apply now')]/../..//a/@href"
-    cards = "//ul//*[@name='card']"
-    category = "//label/..//label[contains(text(), 'Job categories')]/..//span/text()"
-    description = "//*[@class='trix-content']"
-    tags = "//label/..//label[contains(text(), 'Skills')]/.."
-    title = "//h1/text()"
-    job_type = "//label/..//label[contains(text(), 'Job type')]/..//p/text()"
-    url = "@data-path"
-
-
-class HimalayasCompanyConfig(Configuration):
-    description = "//*[@class='trix-content']"
-    logo = "//header//header//img/@src"
-    name = "//h1//span/text()"
-    url = "//label[contains(text(), 'Primary industry')]/../../..//a/@href"
-
-    def get_logo(self, xpath):
-        return self.response.xpath(xpath).get()
-
 # GETONBRD CONFIGURATION
 # --------------------------------------------------
-class GetonbrdGenericConfig(Configuration):
+class GetonbrdConfig(Configuration):
     pages_url = "//a[@title]/@href"
     country = "//span[@class='location-flag']/../span[@itemprop]/@text()"
     valid_job = ".//span[@class='location']"
     valid_job_re = "Remote|remote"
         
-
-class GetonbrdJobConfig(Configuration):
-    cards = "//ul//a[@data-turbo='false']"
-    url = "@href"
-    application_url = "//a[@id='apply_bottom']/@href"
-    title = "//h1/span/text()"
-    description = "//div[@itemprop='description']"
+    job_application_url = "//a[@id='apply_bottom']/@href"
+    job_cards = "//ul//a[@data-turbo='false']"
+    job_category = "//h2[@class='size1 mb-3 w400 lh2']/text()"
+    job_description = "//div[@itemprop='description']"
+    job_job_type = "//h2[@class='size1 mb-3 w400 lh2']/text()"
+    job_title = "//h1/span/text()"
     job_type = "//h2[@class='size1 mb-3 w400 lh2']/text()"
-    category = "//h2[@class='size1 mb-3 w400 lh2']/text()"
+    job_url = "@href"
 
-
-class GetonbrdCompanyConfig(Configuration):
-    url = "//a[@class='gb-company-logo__link']/@href"
-    name = "//h2/text()"
-    description = "//*[@id='about']"
-    logo = "//span[@class='gb-header-brand__logo border-radius']/@style"
+    company_description = "//*[@id='about']"
+    company_logo = "//span[@class='gb-header-brand__logo border-radius']/@style"
+    company_name = "//h2/text()"
+    company_url = "//a[@class='gb-company-logo__link']/@href"
     logo_re = "url[(](.*)[)]"
 
-    def get_logo(self, xpath):
+    def get_company_logo(self, xpath):
         return self.response.xpath(xpath).re(self.logo_re)[0]
+
+    def get_valid_job(self, xpath):
+        return self.response.xpath(xpath).re(self.valid_job_re)

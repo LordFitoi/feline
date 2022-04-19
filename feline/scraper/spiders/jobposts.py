@@ -1,22 +1,14 @@
 import scrapy
 from urllib.parse import urlparse
 from .utils.extractor import Extractor
-from .utils.configurations import *
+from .utils.configurations import HimalayasConfig, GetonbrdConfig
 
 class HimalayasExtractor(Extractor):
-    generic_config_class = HimalayasGenericConfig
-    company_config_class = HimalayasCompanyConfig
-    job_config_class = HimalayasJobConfig
+    config_class = HimalayasConfig
     
 
 class GetonbrdExtractor(Extractor):
-    generic_config_class = GetonbrdGenericConfig
-    company_config_class = GetonbrdCompanyConfig
-    job_config_class = GetonbrdJobConfig
-
-    def is_valid_job(self, job_card):
-        self.generic.set_response(job_card)
-        return self.generic._valid_job.re(self.generic.valid_job_re)
+    config_class = GetonbrdConfig
 
 
 class JobPostSpider(scrapy.Spider):
