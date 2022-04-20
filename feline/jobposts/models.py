@@ -1,4 +1,5 @@
 from enum import Enum
+from datetime import datetime
 from feline.users.models import User
 
 from django.contrib.contenttypes.fields import GenericRelation
@@ -128,11 +129,12 @@ class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
       null=True
     )
 
-    salary_range_start_at =  models.IntegerField(blank=True, null=True)
+    salary_range_start_at = models.IntegerField(blank=True, null=True)
     salary_range_end_at = models.IntegerField(blank=True, null=True)
     source = models.CharField(default="User Generated", max_length=255)
     sponsor_relocation = models.BooleanField(default=False)
     is_remote = models.BooleanField(default=False)
+    created = models.DateTimeField(blank=True, default=datetime.now)
 
     # count views on the page
     hit_count_generic = GenericRelation(

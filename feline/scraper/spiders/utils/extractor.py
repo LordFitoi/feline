@@ -15,7 +15,9 @@ class Extractor:
         kwargs["company"] = {
             "logo": self.config._company_logo,
             "name": self.config._company_name.get(),
-            "description": self.config._company_description.get()
+            "description": self.config._company_description.get(),
+            "company_url": self.config._company_website.get(),
+            "company_size": self.config._company_size
         }
 
         return kwargs
@@ -28,7 +30,9 @@ class Extractor:
             "category": self.config._job_category.get(),
             "description": self.config._job_description.get(),
             "job_type": self.config._job_type.get(),
-            "title": self.config._job_title.get()
+            "title": self.config._job_title.get(),
+            "created": self.config._job_created_date,
+            **self.config._job_salary
         }
 
         return response.follow(
@@ -39,13 +43,13 @@ class Extractor:
 
     def parse_page(self, response, **kwargs):
         self.config.set_response(response)
-        
+
         for job_card in self.config._job_cards:
             self.config.set_response(job_card)
 
             if not self.config._valid_job:
                 continue
-
+            
             yield response.follow(
                 url = self.config._job_url.get(),
                 callback = self.parse_job,

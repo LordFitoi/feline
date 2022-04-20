@@ -28,6 +28,12 @@ CATEGORIES_KEYWORDS = {
     "customer service": "Servicio al Cliente"
 }
 
+COMPANY_SIZES = {
+    10 : Company.CompanySize.SMALL,
+    50 : Company.CompanySize.MEDIUM,
+    500 : Company.CompanySize.LARGE,
+    2000 : Company.CompanySize.X_LARGE
+}
 
 class JobPostPipeline:
     categories = {}
@@ -57,6 +63,20 @@ class JobPostPipeline:
 
         return category
 
+    def get_company_size(self, employees_amount):
+        company_size = Company.CompanySize.MICRO
+
+        if not employees_amount:
+            return company_size
+
+        for min_employees_amount, value in COMPANY_SIZES.items():
+            if employees_amount > min_employees_amount:
+                company_size = COMPANY_SIZES[min_employees_amount]
+                continue
+            break
+
+        return company_size
+
     def process_item(self, item, spider):
         source = item.get("source")
         jobpost_kwargs = item.get("jobpost")
@@ -75,7 +95,9 @@ class JobPostPipeline:
         # COMPANY PARSING DATA
         # -------------------------------------------------
         company_kwargs["user"] = user
-
+        company_kwargs["company_size"] = self.get_company_size(
+            company_kwargs["company_size"])
+        
         try:
             company_search_kwargs = company_kwargs.copy()
             company_search_kwargs.pop("logo")
