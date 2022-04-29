@@ -22,7 +22,8 @@ class Category(TimeStampedModel, models.Model):
     name = models.CharField('nombre', max_length=255)
     description = models.TextField('descripción', blank=True, null=True)
     slug = AutoSlugField('slug', populate_from='name')
-
+    source = models.CharField(default="User Generated", max_length=255)
+    
     def __str__(self):
         return self.name
 

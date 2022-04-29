@@ -4,7 +4,6 @@ Pillow==8.3.2  # https://github.com/python-pillow/Pillow
 argon2-cffi==21.1.0  # https://github.com/hynek/argon2_cffi
 redis==3.5.3  # https://github.com/andymccurdy/redis-py
 hiredis==2.0.0  # https://github.com/redis/hiredis-py
-Scrapy==2.6.1 # https://github.com/scrapy/scrapy
 
 # Django
 # ------------------------------------------------------------------------------
