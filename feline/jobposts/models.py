@@ -8,14 +8,14 @@ from django.db.models.fields.related import ForeignKey
 
 from django_countries.fields import CountryField
 from django_extensions.db.fields import AutoSlugField
-from django_extensions.db.models import TitleSlugDescriptionModel, TimeStampedModel
+from django_extensions.db.models import TitleDescriptionModel, TimeStampedModel
 from django.urls import reverse
 
 
 from ckeditor.fields import RichTextField
 from hitcount.conf import settings as hitcount_settings
-from hitcount.mixins import HitCountModelMixin
 from taggit.managers import TaggableManager
+from django.utils.translation import gettext_lazy as _
 
 
 class Category(TimeStampedModel, models.Model):
@@ -80,7 +80,8 @@ class Company(TimeStampedModel, models.Model):
         return reverse('company-detail', args=[str(self.slug)])
 
 
-class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
+class JobPost(TitleDescriptionModel, TimeStampedModel, models.Model):
+
     class JobType(models.TextChoices):
         PART_TIME = "Part Time"
         FULL_TIME = "Full Time"
@@ -100,7 +101,9 @@ class JobPost(TitleSlugDescriptionModel, TimeStampedModel, models.Model):
         DOLLARS = "USD"
         EUROS = "EUR"
 
+
     description = RichTextField()
+    slug = AutoSlugField(_('slug'), populate_from=['title', 'created'], unique=True)
     company = ForeignKey(Company, on_delete=models.CASCADE)
     # TODO:    Location => Countries + ‘Remote’ (primera option) + Estados Unidos 
     #          + Republica Dominicana

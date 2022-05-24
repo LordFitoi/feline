@@ -121,12 +121,23 @@ form.contact-form input[type=text] {
     height: 56px;
     font-size: 20px; } }
 
-body .rich-text-description h1, body .rich-text-description h2, body .rich-text-description h3 {
+
+
+body .rich-text-description h1,
+body .rich-text-description h2,
+body .rich-text-description h3 {
   font-weight: bold;
-  font-size: 30px;
-  font-size: 1.875rem;
-  line-height: 36px;
-  line-height: 2.25rem; }
+  line-height: 1.2em;}
+
+body .rich-text-description h1 {
+  font-size: 1.5rem;}
+
+body .rich-text-description h2 {
+  font-size: 1.25rem;}
+
+body .rich-text-description h3 {
+  font-size: 1.125rem;
+  font-size: 1.75rem;}
 
 body .rich-text-description h4 {
   font-weight: 600;
@@ -150,11 +161,29 @@ body .rich-text-description h6 {
   text-transform: uppercase; }
 
 body .rich-text-description p {
-  font-size: 16px;
   font-size: 1rem;
-  line-height: 24px;
-  line-height: 1.5rem; }
+  line-height: 1.2em;}
 
 body .rich-text-description ul {
   list-style-type: disc;
   list-style-position: inside; }
+
+body .rich-text-description p,
+body .rich-text-description ul {
+  margin-bottom: 1rem;}
+
+body .rich-text-description .mb4 {
+  margin-bottom: 2rem;}
+
+body .rich-text-description .gb-fluid-boxes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));}
+
+body .rich-text-description .gb-fluid-boxes .pb {
+  margin-bottom: 1.5rem;}
+
+body .rich-text-description u {
+  float: left; }
+
+body .rich-text-description .gb-fluid-boxes .hierarchy2 {
+  font-size: 14px;}
